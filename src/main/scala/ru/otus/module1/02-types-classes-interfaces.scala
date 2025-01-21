@@ -112,6 +112,15 @@ object type_system {
    *
    */
 
+  class Rectangle(
+                   val height: Float,
+                   val width: Float
+                 ):
+    def getSize: Float =
+      height * width
+
+  var size: Float = Rectangle(1, 2).getSize
+  println("size = " + size)
 
   /**
    * object
@@ -131,7 +140,10 @@ object type_system {
 
     // создать case класс кредитная карта с двумя полями номер и cvc
 
+  case class creditCard(val num: String, val cvc: Int)
 
+  val card = creditCard("123", 123)
+  println("num = " + card.num + ", cvc = " + card.cvc)
 
 
 
