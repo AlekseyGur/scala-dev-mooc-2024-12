@@ -3,6 +3,8 @@ package collections
 object task_collections {
 
   def isASCIIString(str: String): Boolean = str.matches("[A-Za-z]+")
+  def isDigit(str: String): Boolean = str.matches("[0-9]+")
+
 
   /**
    * Реализуйте метод который первый элемент списка не изменяет, а для последующих алгоритм следующий:
@@ -16,7 +18,7 @@ object task_collections {
    *
    * **/
   def capitalizeIgnoringASCII(text: List[String]): List[String] = {
-    List.empty
+    text.map( x => if (isASCIIString(x)) x.toUpperCase() else x.toLowerCase() )
   }
 
   /**
@@ -29,7 +31,20 @@ object task_collections {
    * HINT: Для всех возможных комбинаций чисел стоит использовать Map
    * **/
   def numbersToNumericString(text: String): String = {
-    ""
+    text.split(" ").map(
+      x => x match
+        case "0" => "zero"
+        case "1" => "one"
+        case "2" => "two"
+        case "3" => "three"
+        case "4" => "foru"
+        case "5" => "five"
+        case "6" => "six"
+        case "7" => "seven"
+        case "8" => "eight"
+        case "9" => "nine"
+        case _ => x
+    ).mkString(" ")
   }
 
   /**
@@ -47,7 +62,10 @@ object task_collections {
    * Реализуйте метод который примет две коллекции (два источника) и вернёт объединенный список уникальный значений
    **/
   def intersectionAuto(dealerOne: Iterable[Auto], dealerTwo: Iterable[Auto]): Iterable[Auto] = {
-    Iterable.empty
+    val setOne = dealerOne.toSet
+    val setTwo = dealerTwo.toSet
+    
+    (setOne ++ setTwo).toIterable
   }
 
   /**
@@ -56,6 +74,12 @@ object task_collections {
    * и вернёт уникальный список машин обслуживающихся в первом дилерском центре и не обслуживающимся во втором
    **/
   def filterAllLeftDealerAutoWithoutRight(dealerOne: Iterable[Auto], dealerTwo: Iterable[Auto]): Iterable[Auto] = {
-    Iterable.empty
+    val setOne = dealerOne.toSet
+    val setTwo = dealerTwo.toSet
+
+    val setBoth = setOne.intersect(setTwo)
+    val setOneNotTwo = setOne -- setBoth
+
+    setOneNotTwo.toIterable
   }
 }
