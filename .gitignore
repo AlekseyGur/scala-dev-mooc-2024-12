@@ -1,4 +1,9 @@
+.vscode
+.metals
 .bsp
 .idea
+.bloop
+.scala-build
+.scalafmt.conf
 project/target
 target
