@@ -7,3 +7,6 @@
 .scalafmt.conf
 project/target
 target
+.bloop
+.vscode
+.metals
