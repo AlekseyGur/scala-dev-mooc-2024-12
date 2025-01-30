@@ -18,7 +18,15 @@ object task_collections {
    *
    * **/
   def capitalizeIgnoringASCII(text: List[String]): List[String] = {
-    text.map( x => if (isASCIIString(x)) x.toUpperCase() else x.toLowerCase() )
+    text.zipWithIndex.map{
+      case (x, i) =>
+        (isASCIIString(x), x, i) match {
+          case (true, x, i) if i == 0 => x.capitalize
+          case (true, x, i) if i > 0 => x.toUpperCase()
+          case (false, x, i) if i > 0 => x.toLowerCase()
+          case _ => x
+        }
+    }
   }
 
   /**
@@ -31,20 +39,18 @@ object task_collections {
    * HINT: Для всех возможных комбинаций чисел стоит использовать Map
    * **/
   def numbersToNumericString(text: String): String = {
-    text.split(" ").map(
-      x => x match
-        case "0" => "zero"
-        case "1" => "one"
-        case "2" => "two"
-        case "3" => "three"
-        case "4" => "foru"
-        case "5" => "five"
-        case "6" => "six"
-        case "7" => "seven"
-        case "8" => "eight"
-        case "9" => "nine"
-        case _ => x
-    ).mkString(" ")
+    text.split(" ").map {
+      case "1" => "one"
+      case "2" => "two"
+      case "3" => "three"
+      case "4" => "four"
+      case "5" => "five"
+      case "6" => "six"
+      case "7" => "seven"
+      case "8" => "eight"
+      case "9" => "ten"
+      case x => x
+    }.mkString(" ")
   }
 
   /**
@@ -64,8 +70,7 @@ object task_collections {
   def intersectionAuto(dealerOne: Iterable[Auto], dealerTwo: Iterable[Auto]): Iterable[Auto] = {
     val setOne = dealerOne.toSet
     val setTwo = dealerTwo.toSet
-    
-    (setOne ++ setTwo).toIterable
+    setOne ++ setTwo
   }
 
   /**
@@ -78,8 +83,6 @@ object task_collections {
     val setTwo = dealerTwo.toSet
 
     val setBoth = setOne.intersect(setTwo)
-    val setOneNotTwo = setOne -- setBoth
-
-    setOneNotTwo.toIterable
+    setOne -- setBoth
   }
 }
