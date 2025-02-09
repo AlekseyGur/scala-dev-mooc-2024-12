@@ -21,6 +21,11 @@ object task_futures_sequence {
    */
   def fullSequence[A](futures: List[Future[A]])
                      (implicit ex: ExecutionContext): Future[(List[A], List[Throwable])] =
-    task"Реализуйте метод `fullSequence`" ()
+    futures.foldLeft(Future.successful((List.empty[A], List.empty[Throwable]))) {
+      (x, future) => x.flatMap {
+        case (a, b) => future.map { success => (a :+ success, b) }
+          .recover { case error: Throwable => (a, b :+ error ) }
+      }
+    }
 
 }
