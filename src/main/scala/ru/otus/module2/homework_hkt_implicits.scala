@@ -46,7 +46,7 @@ object homework_hkt_implicits {
     m1(a).flatMap(a => m2(b).map(b => (a, b)))
 
   val r4 = tupleFi(List("text"), List(1, 2, 3))
-  val r5 = tupleFi(Some("text"), Some(3))
+  val r5 = tupleFi(Option("text"), Option(3))
   val r6 = tupleFi(Some("text"), Some(3))
 
   println(r4)
