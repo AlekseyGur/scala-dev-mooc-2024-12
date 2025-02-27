@@ -1,7 +1,6 @@
 package ru.otus.module2
 
 import cats.Functor
-import cats.implicits._
 import scala.util.{Failure, Success, Try}
 
 package object catsHomework {
